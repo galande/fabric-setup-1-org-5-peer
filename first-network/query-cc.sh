@@ -1,0 +1,1 @@
+peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'

@@ -1,0 +1,68 @@
+bg@bg:~/Blockchain/Hyperledger/fabric/fabric-samples/first-network$ ./byfn.sh generate
+Generating certs and genesis block for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds
+Continue? [Y/n] y
+proceeding ...
+/home/bg/Blockchain/Hyperledger/fabric/fabric-samples/first-network/../bin/cryptogen
+
+##########################################################
+##### Generate certificates using cryptogen tool #########
+##########################################################
++ cryptogen generate --config=./crypto-config.yaml
+org1.example.com
+org2.example.com
++ res=0
++ set +x
+
+/home/bg/Blockchain/Hyperledger/fabric/fabric-samples/first-network/../bin/configtxgen
+##########################################################
+#########  Generating Orderer Genesis block ##############
+##########################################################
++ configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+2018-09-03 22:36:41.714 IST [common/tools/configtxgen] main -> WARN 001 Omitting the channel ID for configtxgen is deprecated.  Explicitly passing the channel ID will be required in the future, defaulting to 'testchainid'.
+2018-09-03 22:36:41.714 IST [common/tools/configtxgen] main -> INFO 002 Loading configuration
+2018-09-03 22:36:41.738 IST [common/tools/configtxgen/encoder] NewChannelGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the channel group in configtx.yaml
+2018-09-03 22:36:41.738 IST [common/tools/configtxgen/encoder] NewOrdererGroup -> WARN 004 Default policy emission is deprecated, please include policy specificiations for the orderer group in configtx.yaml
+2018-09-03 22:36:41.739 IST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the orderer org group OrdererOrg in configtx.yaml
+2018-09-03 22:36:41.740 IST [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-09-03 22:36:41.740 IST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org1MSP in configtx.yaml
+2018-09-03 22:36:41.740 IST [msp] getMspConfig -> INFO 008 Loading NodeOUs
+2018-09-03 22:36:41.740 IST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 009 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org2MSP in configtx.yaml
+2018-09-03 22:36:41.740 IST [common/tools/configtxgen] doOutputBlock -> INFO 00a Generating genesis block
+2018-09-03 22:36:41.741 IST [common/tools/configtxgen] doOutputBlock -> INFO 00b Writing genesis block
++ res=0
++ set +x
+
+#################################################################
+### Generating channel configuration transaction 'channel.tx' ###
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
+2018-09-03 22:36:41.803 IST [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-09-03 22:36:41.813 IST [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 002 Generating new channel configtx
+2018-09-03 22:36:41.813 IST [common/tools/configtxgen/encoder] NewApplicationGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the application group in configtx.yaml
+2018-09-03 22:36:41.814 IST [msp] getMspConfig -> INFO 004 Loading NodeOUs
+2018-09-03 22:36:41.814 IST [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the application org group Org1MSP in configtx.yaml
+2018-09-03 22:36:41.815 IST [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-09-03 22:36:41.815 IST [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the application org group Org2MSP in configtx.yaml
+2018-09-03 22:36:41.817 IST [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 008 Writing new channel tx
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org1MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
+2018-09-03 22:36:41.910 IST [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-09-03 22:36:41.919 IST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-09-03 22:36:41.920 IST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org2MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP
+2018-09-03 22:36:41.975 IST [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-09-03 22:36:41.984 IST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-09-03 22:36:41.985 IST [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
